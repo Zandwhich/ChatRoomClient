@@ -40,9 +40,24 @@ public class Window extends JFrame {
     private Controller controller;
 
     /**
+     * The menu bar at the top of the screen
+     */
+    private MenuBar menuBar;
+
+    /**
      * The button to send messages
      */
     private SendButton sendButton;
+
+    /**
+     * The main panel that holds everything in the window together
+     */
+    private JPanel mainPanel;
+
+    /**
+     * The panel at the bottom that holds the input text and the send button
+     */
+    private JPanel bottomPanel;
 
 
     /* Constructors */
@@ -56,6 +71,15 @@ public class Window extends JFrame {
 
         this.controller = controller;
         this.sendButton = new SendButton(this.controller, this);
+        this.menuBar = new MenuBar(this.controller);
+
+        this.mainPanel = new JPanel();
+        this.bottomPanel = new JPanel();
+
+        this.bottomPanel.add(this.sendButton);
+        this.mainPanel.add(this.bottomPanel);
+        super.add(this.mainPanel);
+        super.setJMenuBar(this.menuBar);
 
         super.setSize(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
         // TODO: Set it so that it disconnects from the server
