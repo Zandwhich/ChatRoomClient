@@ -26,7 +26,7 @@ public class MenuBar extends JMenuBar {
     /* Constructors */
 
     /**
-     * The constroctor for the menu bar
+     * The constructor for the menu bar
      * @param controller The controller that controls everything
      */
     public MenuBar(Controller controller) {
