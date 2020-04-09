@@ -7,6 +7,7 @@ package com.company.view;
 import com.company.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The main window of the chat room
@@ -50,6 +51,11 @@ public class Window extends JFrame {
     private SendButton sendButton;
 
     /**
+     * The input field at the bottom of the window
+     */
+    private InputArea inputArea;
+
+    /**
      * The main panel that holds everything in the window together
      */
     private JPanel mainPanel;
@@ -58,6 +64,21 @@ public class Window extends JFrame {
      * The panel at the bottom that holds the input text and the send button
      */
     private JPanel bottomPanel;
+
+    /**
+     * The pane that will hold the text of the chat
+     */
+    private JScrollPane chatScrollPane;
+
+    /**
+     * The pane that will hold the box to type out the message
+     */
+    private JScrollPane messageScrollPane;
+
+    /**
+     * The chat box where the chat will be displayed
+     */
+    private ChatBox chatBox;
 
 
     /* Constructors */
@@ -68,20 +89,33 @@ public class Window extends JFrame {
      */
     public Window(Controller controller) {
         super(Window.TITLE);
+        super.setSize(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
+        super.setResizable(false);
 
         this.controller = controller;
         this.sendButton = new SendButton(this.controller, this);
         this.menuBar = new MenuBar(this.controller);
+        this.inputArea = new InputArea(this.controller);
+        this.chatBox = new ChatBox(this.controller);
+        this.chatScrollPane = new JScrollPane(this.chatBox);
+        this.messageScrollPane = new JScrollPane(this.inputArea);
+        this.bottomPanel = new JPanel(new BorderLayout(2, 0));
+        this.mainPanel = new JPanel(new BorderLayout(0, 2));
 
-        this.mainPanel = new JPanel();
-        this.bottomPanel = new JPanel();
+        this.bottomPanel.add(this.messageScrollPane, BorderLayout.CENTER);
+        this.bottomPanel.add(this.sendButton, BorderLayout.LINE_END);
 
-        this.bottomPanel.add(this.sendButton);
-        this.mainPanel.add(this.bottomPanel);
+//        this.scrollPane.setSize(50, 50);
+
+        this.mainPanel.add(this.chatScrollPane, BorderLayout.CENTER);
+        this.mainPanel.add(this.bottomPanel, BorderLayout.PAGE_END);
+//        this.mainPanel.add(this.bottomPanel, BorderLayout.SOUTH);
+
         super.add(this.mainPanel);
+
         super.setJMenuBar(this.menuBar);
 
-        super.setSize(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
+
         // TODO: Set it so that it disconnects from the server
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
