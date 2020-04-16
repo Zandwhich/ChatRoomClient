@@ -69,10 +69,19 @@ public class Controller {
      * Tells the window to print a message to the text box
      * @param message The message to print
      */
-    public void printMessage(String message) {
-        // TODO: In the future parse out the person's name and figure out the colour to set their name, etc.
+    public void printMessage(String message, Color messageColor) {
+        this.window.printMessage(message, messageColor);
+    }//end printMessage()
 
-        this.window.printMessage(message, Color.BLACK);
+    /**
+     * Tells the window to print a message to the text box
+     * @param name The name of the person who sent the message
+     * @param nameColor The color to display the name
+     * @param message The message to display
+     * @param messageColor The color of the message
+     */
+    public void printMessage(String name, Color nameColor, String message, Color messageColor) {
+        this.window.printMessage(name, nameColor, message, messageColor);
     }//end printMessage()
 
     /**

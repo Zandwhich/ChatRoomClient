@@ -6,7 +6,10 @@ package com.company.model;
 
 import com.company.Controller;
 import json_simple.JSONObject;
+import json_simple.parser.JSONParser;
+import json_simple.parser.ParseException;
 
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
@@ -19,6 +22,126 @@ import java.util.Calendar;
  * The model class that is in charge with communicating with the server
  */
 public class Model {
+
+    /* Internal Classes */
+
+    /**
+     * The thread to deal with inputs from the server
+     */
+    class InputThread extends Thread {
+
+        /* Fields */
+
+        /* Constructors */
+
+        /* Methods */
+
+        /**
+         * Deals with receiving inputs from the server
+         */
+        @Override
+        public void run() {
+            String input;
+
+            while (true) {
+                try {
+                    input = this.readInput();
+                } catch (IOException e) {
+                    System.err.println("There was an error while trying to read in data from the server");
+                    System.err.println("Message: " + e.getMessage());
+                    System.err.println("Cause: " + e.getCause());
+                    System.err.println("Stack Trace:"); e.printStackTrace();
+                    break;
+                }//end try/catch
+
+                JSONObject jsonResponse  = this.deserializeMessageFromServer(input);
+
+                // There was an error with reading in this message; skipping over it and continuing on
+                if (jsonResponse == null) continue;
+
+                this.outputMessage(jsonResponse);
+            }//end while
+        }//end run()
+
+        /**
+         * Gets the data from the server
+         * @return The input from the server
+         * @throws IOException TODO: Fill in
+         */
+        private String readInput() throws IOException {
+            return in.readUTF();
+        }//end readInput()
+
+        /**
+         * Deserializes a message from the server from a String into a JSONObject
+         * @param message The JSON object received from the server as a String
+         * @return The JSON object received from the server as a JSONObject
+         */
+        private JSONObject deserializeMessageFromServer(String message) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = (JSONObject) parser.parse(message);
+            } catch (ParseException e) {
+                System.err.println("An error occurred while trying to parse a message from the server");
+                System.err.println("Message from server: " + message);
+                System.err.println("Error Message: " + e.getMessage());
+                System.err.println("Cause of error: " + e.getCause());
+                System.err.println("Stack Trace:"); e.printStackTrace();
+            }//end try/catch
+            return jsonObject;
+        }//end deserializeMessageFromServer
+
+        /**
+         * Outputs the response from the server onto the screen.
+         * The response should be in the format specified in the README
+         * @param response The response from the server
+         */
+        private void outputMessage(JSONObject response) {
+            if (!response.containsKey(Model.MESSAGE_KEY) || response.get(Model.MESSAGE_KEY) == null) {
+                this.malformedServerResponse(response);
+                return;
+            }//end if
+
+            JSONObject message = (JSONObject) response.get(Model.MESSAGE_KEY);
+
+            if (!message.containsKey(Model.TEXT_KEY) || message.get(Model.TEXT_KEY) == null) {
+                this.malformedServerResponse(response);
+                return;
+            }//end if
+
+            String messageText = (String) message.get(Model.TEXT_KEY);
+
+            // TODO: Implement the colour for the message
+
+            if (!response.containsKey(Model.NAME_KEY) || response.get(Model.NAME_KEY) == null) {
+                controller.printMessage(messageText, Color.BLACK);
+            }//end if
+
+            JSONObject name = (JSONObject) response.get(Model.NAME_KEY);
+
+            if (!name.containsKey(Model.TEXT_KEY) || name.get(Model.TEXT_KEY) == null) {
+                this.malformedServerResponse(response);
+                return;
+            }//end if
+
+            String nameText = (String) name.get(Model.TEXT_KEY);
+
+            // TODO: Implement the colour for the message
+
+            controller.printMessage(nameText, Color.BLUE, messageText, Color.BLACK);
+        }//end outputMessage()
+
+        /**
+         * Prints out errors if there is a malformed response from the server
+         * @param response The malformed response from the server
+         */
+        private void malformedServerResponse(JSONObject response) {
+            System.err.println("There was a malformed response from the server");
+            System.err.println("Malformed response: " + response.toString());
+        }//end malformedServerResponse
+    }//end InputThread
+
 
     /* Fields */
 
@@ -33,6 +156,11 @@ public class Model {
      * The key to denote the message in the JSON to the server
      */
     public static final String MESSAGE_KEY = "message";
+
+    /**
+     * The key to denote the text in the JSON object
+     */
+    public static final String TEXT_KEY = "text";
 
     /**
      * The key to denote the time in the JSON to the server
@@ -121,7 +249,8 @@ public class Model {
         this.sendToServer(jsonObject.toString());
 
         // TODO: This is just here for testing purposes. Get rid of this later
-        this.controller.printMessage(jsonObject.get(Model.NAME_KEY) + ": " + jsonObject.get(Model.MESSAGE_KEY));
+        this.controller.printMessage((String) jsonObject.get(Model.NAME_KEY), Color.BLUE,
+                (String) jsonObject.get(Model.MESSAGE_KEY), Color.BLACK);
     }//end sendMessage()
 
     // Private
