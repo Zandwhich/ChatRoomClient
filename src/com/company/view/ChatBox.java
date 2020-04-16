@@ -29,4 +29,18 @@ public class ChatBox extends JTextPane {
 
         super.setEditable(false);
     }//end ChatBox()
+
+
+    /* Methods */
+
+    // Public
+
+    /**
+     * Updates the chat box with the given message
+     * @param message The given message to print to the screen
+     */
+    public void printMessage(String message) {
+        if (super.getText().equals("")) super.setText(message);
+        else super.setText(super.getText() + '\n' + message);
+    }//end printMessage()
 }//end ChatBox

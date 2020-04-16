@@ -5,7 +5,6 @@
 package com.company.model;
 
 import com.company.Controller;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import json_simple.JSONObject;
 
 import java.io.DataInputStream;
@@ -43,7 +42,7 @@ public class Model {
     /**
      * The IP Address of the server to connect to
      */
-    public static final String SERVER_IP = "10.0.1.36";
+    public static final String SERVER_IP = "10.0.1.40";
 
     /**
      * The starting port to try to connect to the server
@@ -120,6 +119,9 @@ public class Model {
     public void sendMessage(String message) {
         JSONObject jsonObject = this.createJSONMessage(message);
         this.sendToServer(jsonObject.toString());
+
+        // TODO: This is just here for testing purposes. Get rid of this later
+        this.controller.printMessage(jsonObject.get(Model.NAME_KEY) + ": " + jsonObject.get(Model.MESSAGE_KEY));
     }//end sendMessage()
 
     // Private

@@ -131,7 +131,7 @@ public class Window extends JFrame {
      * @param message The message to print to the screen
      */
     public void printMessage(String message) {
-        // TODO: Fill in once we've got the text box
+        this.chatBox.printMessage(message);
     }//end printMessage()
 
     /**
