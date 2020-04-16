@@ -126,7 +126,21 @@ public class Window extends JFrame {
 
     /* Methods */
 
+    /**
+     * Prints another message to the screen
+     * @param message The message to print to the screen
+     */
     public void printMessage(String message) {
         // TODO: Fill in once we've got the text box
-    }
+    }//end printMessage()
+
+    /**
+     * Gets the message that the user has typed and clears out the input box
+     * @return Returns the message that the user has typed out and clears the message box
+     */
+    public String retrieveMessage() {
+        String message = this.inputArea.getText();
+        this.inputArea.setText("");
+        return message;
+    }//end retrieveMessage()
 }//end Window

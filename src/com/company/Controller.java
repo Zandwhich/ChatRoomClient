@@ -2,7 +2,10 @@ package com.company;/*
  * Author: Alex Zdanowicz
  */
 
+import com.company.model.Model;
 import com.company.view.Window;
+
+import javax.swing.*;
 
 /**
  * The com.company.Controller class
@@ -19,9 +22,9 @@ public class Controller {
     private Window window;
 
     /**
-     * The name of the person using the chat client
+     * The model of the chat client
      */
-    private String name;
+    private Model model;
 
 
     /* Constructors */
@@ -36,20 +39,13 @@ public class Controller {
     /* Methods */
 
     // Public
-    // Getters
-
-    /**
-     * Returns the name of the person using this chat client
-     * @return The name of the person using this chat client
-     */
-    public String getName() {
-        return name;
-    }//end getName()
 
     /**
      * The method that runs the program
      */
     public void run() {
+        String name = JOptionPane.showInputDialog("Please input your name");
+        this.model = new Model(this, name);
         this.window = new Window(this);
 
         // TODO: Fill this in more when we get here
@@ -57,9 +53,15 @@ public class Controller {
 
     /**
      * The method that is called when the message should be sent to the server
+     * If the message is empty, it doesn't send it to the server
      */
     public void sendMessage() {
-        // TODO: Fill this in
+        String message = this.retrieveMessage();
+
+        // Check to see if the message is empty
+        if (message.equals("")) return;
+
+        this.model.sendMessage(message);
     }//end sendMessage()
 
     /**
@@ -72,6 +74,21 @@ public class Controller {
         this.window.printMessage(message);
     }//end printMessage()
 
+    /**
+     * The method to call when there was an error with connecting to the server
+     */
+    public void declareConnectionError() {
+        // TODO: Fill this in
+    }//end declareConnectionError()
+
     // Private
+
+    /**
+     * The method that retrieves the message that the user has typed
+     * @return The message that the user has typed
+     */
+    private String retrieveMessage() {
+        return this.window.retrieveMessage();
+    }//end retrieveMessage()
 
 }//end com.company.Controller

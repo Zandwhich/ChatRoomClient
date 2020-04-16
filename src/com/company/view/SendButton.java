@@ -69,6 +69,7 @@ public class SendButton extends JButton {
      */
     public SendButton(Controller controller, Window window) {
         super(SendButton.text);
+        super.addActionListener(new ClickListener());
 
         this.controller = controller;
         this.window = window;
@@ -81,7 +82,7 @@ public class SendButton extends JButton {
     /**
      * Sends the current message typed into the text box to the chat server when the button is clicked
      */
-    protected void onClick(ActionEvent e) {
+    private void onClick(ActionEvent e) {
         this.controller.sendMessage();
     }//end onClick()
 
