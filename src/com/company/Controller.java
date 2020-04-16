@@ -6,6 +6,7 @@ import com.company.model.Model;
 import com.company.view.Window;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The com.company.Controller class
@@ -71,7 +72,7 @@ public class Controller {
     public void printMessage(String message) {
         // TODO: In the future parse out the person's name and figure out the colour to set their name, etc.
 
-        this.window.printMessage(message);
+        this.window.printMessage(message, Color.BLACK);
     }//end printMessage()
 
     /**

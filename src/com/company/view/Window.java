@@ -126,12 +126,26 @@ public class Window extends JFrame {
 
     /* Methods */
 
+    // Public
+
     /**
-     * Prints another message to the screen
+     * Prints a message to the screen
      * @param message The message to print to the screen
+     * @param messageColor The color of the message
      */
-    public void printMessage(String message) {
-        this.chatBox.printMessage(message);
+    public void printMessage(String message, Color messageColor) {
+        this.chatBox.printMessage(message, messageColor);
+    }//end printMessage()
+
+    /**
+     * Prints a message with someone's name to print first and the appropriate colors
+     * @param name The name of the person to print first
+     * @param nameColor The color of the name of the person
+     * @param message The message to print
+     * @param messageColor The color of the message
+     */
+    public void printMessage(String name, Color nameColor, String message, Color messageColor) {
+        this.chatBox.printMessage(name, nameColor, message, messageColor);
     }//end printMessage()
 
     /**
