@@ -14,7 +14,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 
@@ -197,6 +199,11 @@ public class Model {
     public static final int MAX_PORT = 1124;
 
     /**
+     * The timeout tolerance in milliseconds for connecting to the server
+     */
+    public static final int TIMEOUT = 100;
+
+    /**
      * The name of the input thread
      */
     public static final String INPUT_THREAD_NAME = "Input Thread";
@@ -298,8 +305,9 @@ public class Model {
             this.out.writeUTF(message);
         } catch (IOException e) {
             System.err.println("There was an error sending a message to the server. Message:\n" + message);
-            System.err.println(e.getMessage());
-            System.err.println(e.getStackTrace());
+            System.err.println("Error Message: " + e.getMessage());
+            System.err.println("Cause: " + e.getCause());
+            System.err.println("Stack Trace:"); e.printStackTrace();
         }//end try/catch
     }//end sendToServer
 
@@ -363,8 +371,9 @@ public class Model {
             this.out = new DataOutputStream(server.getOutputStream());
         } catch (IOException e) {
             System.err.println("There was an error creating the input and/or output streams");
-            System.err.println(e.getMessage());
-            System.err.println(e.getStackTrace());
+            System.err.println("Error Message: " + e.getMessage());
+            System.err.println("Error Cause: " + e.getCause());
+            System.err.println("Stack Trace:"); e.printStackTrace();
             this.in = null;
             this.out = null;
         }//end try/catch
