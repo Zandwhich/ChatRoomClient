@@ -121,7 +121,7 @@ public class Window extends JFrame {
 
         // TODO: We only have this here now for testing purposes.
         //  In the future, this screen will only become visible once the user inputs their name
-        super.setVisible(true);
+        super.setVisible(false);
     }//end Window()
 
     /* Methods */

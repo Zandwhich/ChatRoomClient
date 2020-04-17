@@ -34,6 +34,10 @@ public class Controller {
      * The constructor for the Controller class
      */
     public Controller() {
+        this.window = new Window(this);
+        String name = JOptionPane.showInputDialog("Please input your name");
+        this.model = new Model(this, name);
+        this.window.setVisible(true);
     }//end Controller()
 
 
@@ -45,11 +49,6 @@ public class Controller {
      * The method that runs the program
      */
     public void run() {
-        String name = JOptionPane.showInputDialog("Please input your name");
-        this.model = new Model(this, name);
-        this.window = new Window(this);
-
-        // TODO: Fill this in more when we get here
     }//end run()
 
     /**

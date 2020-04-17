@@ -342,27 +342,18 @@ public class Model {
      * Connects to the server
      */
     private void connectToServer() {
-        this.server = new Socket();
-        for (int port = Model.START_PORT; port <= Model.MAX_PORT; port++) {
-            try {
-                System.out.println("Attempting to connect on port: " + port);
-                InetSocketAddress address = new InetSocketAddress(Model.SERVER_IP, port);
-                this.server.connect(address, 10);
-                //this.server = new Socket(Model.SERVER_IP, port);
-                break;
-            } catch (SocketTimeoutException e) {
-                // Increasing the port #
-            } catch(Exception e) {
-                // An unknown error happened
-                System.err.println("An error occurred connecting to the server");
-                System.err.println("Message: " + e.getMessage());
-                System.err.println("Cause: " + e.getCause());
-                System.err.println("Stack Trace:");
-                e.printStackTrace();
-                this.server = null;
-                break;
-            }//end try/catch
-        }//end for
+        try {
+            System.out.println("Attempting to connect on port: " + Model.START_PORT);
+            this.server = new Socket(Model.SERVER_IP, Model.START_PORT);
+        } catch(Exception e) {
+            // An unknown error happened
+            System.err.println("An error occurred connecting to the server");
+            System.err.println("Message: " + e.getMessage());
+            System.err.println("Cause: " + e.getCause());
+            System.err.println("Stack Trace:");
+            e.printStackTrace();
+            this.server = null;
+        }//end try/catch
     }//end connectToServer()
 
     /**
