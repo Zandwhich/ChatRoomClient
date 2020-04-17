@@ -14,10 +14,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.Calendar;
 
 /**
@@ -132,6 +129,7 @@ public class Model {
 
             if (!response.containsKey(Model.NAME_KEY) || response.get(Model.NAME_KEY) == null) {
                 controller.printMessage(messageText, Color.BLACK);
+                return;
             }//end if
 
             JSONObject name = (JSONObject) response.get(Model.NAME_KEY);
@@ -344,21 +342,26 @@ public class Model {
      * Connects to the server
      */
     private void connectToServer() {
-        for (int port = Model.START_PORT; port < Model.MAX_PORT; port++) {
+        this.server = new Socket();
+        for (int port = Model.START_PORT; port <= Model.MAX_PORT; port++) {
             try {
-                this.server = new Socket(Model.SERVER_IP, port);
+                System.out.println("Attempting to connect on port: " + port);
+                InetSocketAddress address = new InetSocketAddress(Model.SERVER_IP, port);
+                this.server.connect(address, 10);
+                //this.server = new Socket(Model.SERVER_IP, port);
                 break;
-            } catch(UnknownHostException e) {
+            } catch (SocketTimeoutException e) {
+                // Increasing the port #
+            } catch(Exception e) {
                 // An unknown error happened
                 System.err.println("An error occurred connecting to the server");
                 System.err.println("Message: " + e.getMessage());
                 System.err.println("Cause: " + e.getCause());
-                System.err.println("Stack Trace:"); e.printStackTrace();
+                System.err.println("Stack Trace:");
+                e.printStackTrace();
                 this.server = null;
                 break;
-            } catch(IOException e) {
-                // Increase to the next port; this one is taken
-            } //end try/catch
+            }//end try/catch
         }//end for
     }//end connectToServer()
 
