@@ -32,6 +32,12 @@ public class Model {
 
         /* Fields */
 
+        // Variables
+        /**
+         * The JSONParser used in parsing Strings into JSONObjects
+         */
+        JSONParser parser;
+
         /* Constructors */
 
         /**
@@ -40,6 +46,7 @@ public class Model {
          */
         public InputThread(String threadName) {
             super(threadName);
+            this.parser = new JSONParser();
         }//end InputThread()
 
         /* Methods */
@@ -86,10 +93,9 @@ public class Model {
          * @return The JSON object received from the server as a JSONObject
          */
         private JSONObject deserializeMessageFromServer(String message) {
-            JSONParser parser = new JSONParser();
             JSONObject jsonObject = null;
             try {
-                jsonObject = (JSONObject) parser.parse(message);
+                jsonObject = (JSONObject) this.parser.parse(message);
             } catch (ParseException e) {
                 System.err.println("An error occurred while trying to parse a message from the server");
                 System.err.println("Message from server: " + message);
@@ -263,10 +269,6 @@ public class Model {
     public void sendMessage(String message) {
         JSONObject jsonObject = this.createJSONMessage(message);
         this.sendToServer(jsonObject.toString());
-
-        // TODO: This is just here for testing purposes. Get rid of this later
-        this.controller.printMessage((String) jsonObject.get(Model.NAME_KEY), Color.BLUE,
-                (String) jsonObject.get(Model.MESSAGE_KEY), Color.BLACK);
     }//end sendMessage()
 
     // Private
