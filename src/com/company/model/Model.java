@@ -345,8 +345,9 @@ public class Model {
             } catch(IOException e) {
                 // An unknown error happened
                 System.err.println("An error occurred connecting to the server");
-                System.err.println(e.getStackTrace());
-                System.err.println(e.getMessage());
+                System.err.println("Message: " + e.getMessage());
+                System.err.println("Cause: " + e.getCause());
+                System.err.println("Stack Trace:"); e.printStackTrace();
                 this.server = null;
                 break;
             }//end try/catch
