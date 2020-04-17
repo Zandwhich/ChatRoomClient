@@ -341,8 +341,6 @@ public class Model {
                 this.server = new Socket(Model.SERVER_IP, port);
                 break;
             } catch(UnknownHostException e) {
-                // Increase to the next port; this one is taken
-            } catch(IOException e) {
                 // An unknown error happened
                 System.err.println("An error occurred connecting to the server");
                 System.err.println("Message: " + e.getMessage());
@@ -350,7 +348,9 @@ public class Model {
                 System.err.println("Stack Trace:"); e.printStackTrace();
                 this.server = null;
                 break;
-            }//end try/catch
+            } catch(IOException e) {
+                // Increase to the next port; this one is taken
+            } //end try/catch
         }//end for
     }//end connectToServer()
 
