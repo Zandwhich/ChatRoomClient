@@ -28,11 +28,19 @@ public class Model {
     /**
      * The thread to deal with inputs from the server
      */
-    class InputThread extends Thread {
+    private class InputThread extends Thread {
 
         /* Fields */
 
         /* Constructors */
+
+        /**
+         * The constructor for the input thread
+         * @param threadName The name of the thread
+         */
+        public InputThread(String threadName) {
+            super(threadName);
+        }//end InputThread()
 
         /* Methods */
 
@@ -182,6 +190,11 @@ public class Model {
      */
     public static final int MAX_PORT = 1124;
 
+    /**
+     * The name of the input thread
+     */
+    public static final String INPUT_THREAD_NAME = "Input Thread";
+
     // Variables
 
     /**
@@ -222,6 +235,9 @@ public class Model {
 
         // Do the initial connection with the server
         this.initialConnection();
+
+        InputThread inputThread = new InputThread(Model.INPUT_THREAD_NAME);
+        inputThread.start();
     }//end Model()
 
 
