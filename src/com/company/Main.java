@@ -20,17 +20,5 @@ public class Main {
         Controller controller = new Controller();
         controller.run();
 
-//        try {
-//            // For now I'm simply going to hit the server
-//            Socket server  = new Socket("10.0.1.36", 1024);
-//            DataInputStream in = new DataInputStream(server.getInputStream());
-//            DataOutputStream out = new DataOutputStream(server.getOutputStream());
-//
-//            System.out.println(in.readUTF());
-//
-//        } catch (Exception e) {
-//            System.err.println(e.getMessage());
-//            System.err.println(e.getStackTrace());
-//        }//end try/catch
     }//end main()
 }//end com.company.Main
