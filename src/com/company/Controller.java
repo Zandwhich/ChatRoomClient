@@ -1,6 +1,8 @@
-package com.company;/*
+/*
  * Author: Alex Zdanowicz
  */
+
+package com.company;
 
 import com.company.model.Model;
 import com.company.view.Window;

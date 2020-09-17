@@ -1,6 +1,8 @@
-package com.company;/*
+/*
  * Author: Alex Zdanowicz
  */
+
+package com.company;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
