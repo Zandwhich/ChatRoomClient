@@ -1,10 +1,14 @@
-# ChatRoom Client
-The client-side code for the chat room.
-I am using json_simple. I didn't make it.
+# ChatRoom — Client
 
-## JSON when sending information to the server:
-{
-    "name": "Alex",
-    "message": "This is the message.",
-    "time": 1586990890364
-   }
+The client-side of a Java chat room application. Connects to the chat server, sends messages, and renders incoming messages.
+
+> **See also:** [ChatRoom Server](https://github.com/Zandwhich/ChatRoomServer)
+
+## Overview
+
+Built in Java, the client handles user input, formats outgoing messages as JSON, and displays server responses with coloured usernames and text.
+
+## Tech
+
+- **Language:** Java
+- **Library:** [json_simple](https://code.google.com/archive/p/json-simple/)
