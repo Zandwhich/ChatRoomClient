@@ -61,7 +61,7 @@ public class Controller {
         String message = this.retrieveMessage();
 
         // Check to see if the message is empty
-        if (message.equals("")) return;
+        if (message.isEmpty()) return;
 
         this.model.sendMessage(message);
     }//end sendMessage()

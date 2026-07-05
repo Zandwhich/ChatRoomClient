@@ -184,7 +184,7 @@ public class Model {
     /**
      * The IP Address of the server to connect to
      */
-    public static final String SERVER_IP = "10.0.1.40";
+    public static final String SERVER_IP = "127.0.1.1";
 
     /**
      * The starting port to try to connect to the server
@@ -211,12 +211,12 @@ public class Model {
     /**
      * The controller that controls everything
      */
-    private Controller controller;
+    private final Controller controller;
 
     /**
      * The name of the client
      */
-    private String name;
+    private final String name;
 
     /**
      * The socket that connects to the server
