@@ -15,10 +15,6 @@ import java.awt.*;
  */
 public class Controller {
 
-    /* Fields */
-
-    // Variables
-
     /**
      * The window of the chat client
      */
@@ -29,9 +25,6 @@ public class Controller {
      */
     private Model model;
 
-
-    /* Constructors */
-
     /**
      * The constructor for the Controller class
      */
@@ -40,18 +33,13 @@ public class Controller {
         String name = JOptionPane.showInputDialog("Please input your name");
         this.model = new Model(this, name);
         this.window.setVisible(true);
-    }//end Controller()
-
-
-    /* Methods */
-
-    // Public
+    }
 
     /**
      * The method that runs the program
      */
     public void run() {
-    }//end run()
+    }
 
     /**
      * The method that is called when the message should be sent to the server
@@ -60,11 +48,10 @@ public class Controller {
     public void sendMessage() {
         String message = this.retrieveMessage();
 
-        // Check to see if the message is empty
         if (message.isEmpty()) return;
 
         this.model.sendMessage(message);
-    }//end sendMessage()
+    }
 
     /**
      * Tells the window to print a message to the text box
@@ -72,7 +59,7 @@ public class Controller {
      */
     public void printMessage(String message, Color messageColor) {
         this.window.printMessage(message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * Tells the window to print a message to the text box
@@ -83,16 +70,14 @@ public class Controller {
      */
     public void printMessage(String name, Color nameColor, String message, Color messageColor) {
         this.window.printMessage(name, nameColor, message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * The method to call when there was an error with connecting to the server
      */
     public void declareConnectionError() {
         // TODO: Fill this in
-    }//end declareConnectionError()
-
-    // Private
+    }
 
     /**
      * The method that retrieves the message that the user has typed
@@ -100,6 +85,6 @@ public class Controller {
      */
     private String retrieveMessage() {
         return this.window.retrieveMessage();
-    }//end retrieveMessage()
+    }
 
-}//end com.company.Controller
+}

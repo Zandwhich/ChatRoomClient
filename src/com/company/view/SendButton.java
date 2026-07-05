@@ -17,10 +17,6 @@ import java.awt.event.ActionListener;
  */
 public class SendButton extends JButton {
 
-    /* Fields */
-
-    // Constants
-
     /**
      * The default width of button button
      */
@@ -35,8 +31,6 @@ public class SendButton extends JButton {
      * The text to be displayed on the send button
      */
     public static final String text = "Send";
-
-    // Variables
 
     /**
      * The controller that holds and subscribes to the button
@@ -56,11 +50,8 @@ public class SendButton extends JButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             onClick(e);
-        }//end actionPerformed()
-    }//end ClickListener
-
-
-    /* Constructors */
+        }
+    }
 
     /**
      * The constructor for the send button
@@ -73,17 +64,13 @@ public class SendButton extends JButton {
 
         this.controller = controller;
         this.window = window;
-    }//end SendButton()
-
-    /* Methods */
-
-    // Protected
+    }
 
     /**
      * Sends the current message typed into the text box to the chat server when the button is clicked
      */
     private void onClick(ActionEvent e) {
         this.controller.sendMessage();
-    }//end onClick()
+    }
 
-}//end SendButton
+}

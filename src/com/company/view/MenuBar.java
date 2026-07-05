@@ -9,9 +9,6 @@ import javax.swing.*;
  */
 public class MenuBar extends JMenuBar {
 
-    /* Fields */
-    // Variables
-
     /**
      * The controller that controls everything
      */
@@ -22,9 +19,6 @@ public class MenuBar extends JMenuBar {
      */
     private ParticipantsMenu participantsMenu;
 
-
-    /* Constructors */
-
     /**
      * The constructor for the menu bar
      * @param controller The controller that controls everything
@@ -34,5 +28,5 @@ public class MenuBar extends JMenuBar {
         this.participantsMenu = new ParticipantsMenu(controller);
 
         super.add(this.participantsMenu);
-    }//end MenuBar()
-}//end MenuBar
+    }
+}

@@ -9,9 +9,6 @@ import javax.swing.*;
  */
 public class ParticipantsMenu extends JMenu {
 
-    /* Fields */
-    // Constants
-
     /**
      * The name of the menu
      */
@@ -19,11 +16,7 @@ public class ParticipantsMenu extends JMenu {
 
     public static final String stand_in_text = "Coming Soon!";
 
-    // Variables
     private Controller controller;
-
-
-    /* Constructors */
 
     /**
      * The constructor for this object
@@ -34,5 +27,5 @@ public class ParticipantsMenu extends JMenu {
 
         this.controller = controller;
         super.add(ParticipantsMenu.stand_in_text);
-    }//end ParticipantsMenu()
-}//end ParticipantsMenu
+    }
+}

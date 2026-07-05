@@ -4,8 +4,6 @@
 
 package com.company;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.net.*;
 
 /**
@@ -22,5 +20,5 @@ public class Main {
         Controller controller = new Controller();
         controller.run();
 
-    }//end main()
-}//end com.company.Main
+    }
+}

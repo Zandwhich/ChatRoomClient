@@ -22,22 +22,15 @@ import java.util.Calendar;
  */
 public class Model {
 
-    /* Internal Classes */
-
     /**
      * The thread to deal with inputs from the server
      */
     private class InputThread extends Thread {
 
-        /* Fields */
-
-        // Variables
         /**
          * The JSONParser used in parsing Strings into JSONObjects
          */
         JSONParser parser;
-
-        /* Constructors */
 
         /**
          * The constructor for the input thread
@@ -46,9 +39,7 @@ public class Model {
         public InputThread(String threadName) {
             super(threadName);
             this.parser = new JSONParser();
-        }//end InputThread()
-
-        /* Methods */
+        }
 
         /**
          * Deals with receiving inputs from the server
@@ -66,7 +57,7 @@ public class Model {
                     System.err.println("Cause: " + e.getCause());
                     System.err.println("Stack Trace:"); e.printStackTrace();
                     break;
-                }//end try/catch
+                }
 
                 JSONObject jsonResponse  = this.deserializeMessageFromServer(input);
 
@@ -74,8 +65,8 @@ public class Model {
                 if (jsonResponse == null) continue;
 
                 this.outputMessage(jsonResponse);
-            }//end while
-        }//end run()
+            }
+        }
 
         /**
          * Gets the data from the server
@@ -84,7 +75,7 @@ public class Model {
          */
         private String readInput() throws IOException {
             return in.readUTF();
-        }//end readInput()
+        }
 
         /**
          * Deserializes a message from the server from a String into a JSONObject
@@ -101,9 +92,9 @@ public class Model {
                 System.err.println("Error Message: " + e.getMessage());
                 System.err.println("Cause of error: " + e.getCause());
                 System.err.println("Stack Trace:"); e.printStackTrace();
-            }//end try/catch
+            }
             return jsonObject;
-        }//end deserializeMessageFromServer
+        }
 
         /**
          * Outputs the response from the server onto the screen.
@@ -114,14 +105,14 @@ public class Model {
             if (!response.containsKey(Model.MESSAGE_KEY) || response.get(Model.MESSAGE_KEY) == null) {
                 this.malformedServerResponse(response);
                 return;
-            }//end if
+            }
 
             JSONObject message = (JSONObject) response.get(Model.MESSAGE_KEY);
 
             if (!message.containsKey(Model.TEXT_KEY) || message.get(Model.TEXT_KEY) == null) {
                 this.malformedServerResponse(response);
                 return;
-            }//end if
+            }
 
             String messageText = (String) message.get(Model.TEXT_KEY);
 
@@ -130,21 +121,21 @@ public class Model {
             if (!response.containsKey(Model.NAME_KEY) || response.get(Model.NAME_KEY) == null) {
                 controller.printMessage(messageText, Color.BLACK);
                 return;
-            }//end if
+            }
 
             JSONObject name = (JSONObject) response.get(Model.NAME_KEY);
 
             if (!name.containsKey(Model.TEXT_KEY) || name.get(Model.TEXT_KEY) == null) {
                 this.malformedServerResponse(response);
                 return;
-            }//end if
+            }
 
             String nameText = (String) name.get(Model.TEXT_KEY);
 
             // TODO: Implement the colour for the message
 
             controller.printMessage(nameText, Color.BLUE, messageText, Color.BLACK);
-        }//end outputMessage()
+        }
 
         /**
          * Prints out errors if there is a malformed response from the server
@@ -153,13 +144,8 @@ public class Model {
         private void malformedServerResponse(JSONObject response) {
             System.err.println("There was a malformed response from the server");
             System.err.println("Malformed response: " + response.toString());
-        }//end malformedServerResponse
-    }//end InputThread
-
-
-    /* Fields */
-
-    // Constants
+        }
+    }
 
     /**
      * The key to denote the name in the JSON to the server
@@ -206,8 +192,6 @@ public class Model {
      */
     public static final String INPUT_THREAD_NAME = "Input Thread";
 
-    // Variables
-
     /**
      * The controller that controls everything
      */
@@ -233,9 +217,6 @@ public class Model {
      */
     private DataOutputStream out;
 
-
-    /* Constructors */
-
     /**
      * The constructor for the model
      * @param controller The controller that controls everything
@@ -244,17 +225,11 @@ public class Model {
         this.controller = controller;
         this.name = name;
 
-        // Do the initial connection with the server
         this.initialConnection();
 
         InputThread inputThread = new InputThread(Model.INPUT_THREAD_NAME);
         inputThread.start();
-    }//end Model()
-
-
-    /* Methods */
-
-    // Getters
+    }
 
     /**
      * Returns the name of the user
@@ -262,10 +237,7 @@ public class Model {
      */
     public String getName() {
         return name;
-    }// end getName()
-
-
-    // Public
+    }
 
     /**
      * Sends a message to the server along with other information
@@ -274,9 +246,7 @@ public class Model {
     public void sendMessage(String message) {
         JSONObject jsonObject = this.createJSONMessage(message);
         this.sendToServer(jsonObject.toString());
-    }//end sendMessage()
-
-    // Private
+    }
 
     /**
      * Creates a JSON Object in the format specified in the README
@@ -291,7 +261,7 @@ public class Model {
         jsonObject.put(Model.TIME_KEY, Calendar.getInstance().getTimeInMillis());
 
         return jsonObject;
-    }//end createJSONWithMessage()
+    }
 
     /**
      * The method that generically sends a message to the server
@@ -306,37 +276,30 @@ public class Model {
             System.err.println("Error Message: " + e.getMessage());
             System.err.println("Cause: " + e.getCause());
             System.err.println("Stack Trace:"); e.printStackTrace();
-        }//end try/catch
-    }//end sendToServer
+        }
+    }
 
     /**
      * Runs once at the beginning to set the initial connection with the server
      */
     private void initialConnection() {
 
-        // Connect to the server
         this.connectToServer();
 
-        // If there was an error connecting to the server,
-        //  let the user know
         if (this.server == null) {
             this.controller.declareConnectionError();
             return;
-        }//end if
+        }
 
-        // Create the input and output streams
         this.createInputOutputStreams();
 
-        // If there was an error creating the streams,
-        //  let the user know
         if (this.in == null || this.out == null) {
             this.controller.declareConnectionError();
             return;
-        }//end if
+        }
 
-        // Send the first message establishing the user's name
         this.sendFirstMessage();
-    }//end initialConnection()
+    }
 
     /**
      * Connects to the server
@@ -346,15 +309,14 @@ public class Model {
             System.out.println("Attempting to connect on port: " + Model.START_PORT);
             this.server = new Socket(Model.SERVER_IP, Model.START_PORT);
         } catch(Exception e) {
-            // An unknown error happened
             System.err.println("An error occurred connecting to the server");
             System.err.println("Message: " + e.getMessage());
             System.err.println("Cause: " + e.getCause());
             System.err.println("Stack Trace:");
             e.printStackTrace();
             this.server = null;
-        }//end try/catch
-    }//end connectToServer()
+        }
+    }
 
     /**
      * Creates the input and output streams with the server
@@ -370,20 +332,18 @@ public class Model {
             System.err.println("Stack Trace:"); e.printStackTrace();
             this.in = null;
             this.out = null;
-        }//end try/catch
-    }//end creatInputOutputStreams()
+        }
+    }
 
     /**
      * Sends the first establishing message to the server
      */
     private void sendFirstMessage() {
-        // Create the message
         JSONObject jsonMessage = new JSONObject();
         jsonMessage.put(Model.NAME_KEY, this.name);
         jsonMessage.put(Model.TIME_KEY, Calendar.getInstance().getTimeInMillis());
 
-        // Send the message
         this.sendToServer(jsonMessage.toString());
-    }//end sendFirstMessage()
+    }
 
-}//end Model
+}

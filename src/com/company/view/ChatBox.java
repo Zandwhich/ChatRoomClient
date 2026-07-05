@@ -10,16 +10,10 @@ import java.awt.*;
  */
 public class ChatBox extends JTextPane {
 
-    /* Fields */
-    // Variables
-
     /**
      * The controller
      */
     private Controller controller;
-
-
-    /* Constructors */
 
     /**
      * The constructor for the chat box
@@ -29,12 +23,7 @@ public class ChatBox extends JTextPane {
         this.controller = controller;
 
         super.setEditable(false);
-    }//end ChatBox()
-
-
-    /* Methods */
-
-    // Public
+    }
 
     /**
      * Updates the chat box with the given message
@@ -45,7 +34,7 @@ public class ChatBox extends JTextPane {
         // TODO: Figure out how to set colors for text
         if (super.getText().equals("")) super.setText(message);
         else super.setText(super.getText() + '\n' + message);
-    }//end printMessage()
+    }
 
     /**
      * Updates the chat box wit the given message, along with who said it and the color to set the name and message
@@ -58,5 +47,5 @@ public class ChatBox extends JTextPane {
         // TODO: Figure out how to set colors for text
         if (super.getText().equals("")) super.setText(name + ": " + message);
         else super.setText(super.getText() + '\n' + name + ": " + message);
-    }//end printMessage()
-}//end ChatBox
+    }
+}

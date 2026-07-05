@@ -14,10 +14,6 @@ import java.awt.*;
  */
 public class Window extends JFrame {
 
-    /* Fields */
-
-    // Constants
-
     /**
      * The default height of the chat window in pixels
      */
@@ -32,8 +28,6 @@ public class Window extends JFrame {
      * The default title of the chat client
      */
     public static String TITLE = "Alex's Super Cool Chat Client";
-
-    // Variables
 
     /**
      * The controller that orchestrates everything together
@@ -80,9 +74,6 @@ public class Window extends JFrame {
      */
     private ChatBox chatBox;
 
-
-    /* Constructors */
-
     /**
      * The constructor for the window
      * @param controller The controller that puts everything together
@@ -105,16 +96,12 @@ public class Window extends JFrame {
         this.bottomPanel.add(this.messageScrollPane, BorderLayout.CENTER);
         this.bottomPanel.add(this.sendButton, BorderLayout.LINE_END);
 
-//        this.scrollPane.setSize(50, 50);
-
         this.mainPanel.add(this.chatScrollPane, BorderLayout.CENTER);
         this.mainPanel.add(this.bottomPanel, BorderLayout.PAGE_END);
-//        this.mainPanel.add(this.bottomPanel, BorderLayout.SOUTH);
 
         super.add(this.mainPanel);
 
         super.setJMenuBar(this.menuBar);
-
 
         // TODO: Set it so that it disconnects from the server
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,11 +109,7 @@ public class Window extends JFrame {
         // TODO: We only have this here now for testing purposes.
         //  In the future, this screen will only become visible once the user inputs their name
         super.setVisible(false);
-    }//end Window()
-
-    /* Methods */
-
-    // Public
+    }
 
     /**
      * Prints a message to the screen
@@ -135,7 +118,7 @@ public class Window extends JFrame {
      */
     public void printMessage(String message, Color messageColor) {
         this.chatBox.printMessage(message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * Prints a message with someone's name to print first and the appropriate colors
@@ -146,7 +129,7 @@ public class Window extends JFrame {
      */
     public void printMessage(String name, Color nameColor, String message, Color messageColor) {
         this.chatBox.printMessage(name, nameColor, message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * Gets the message that the user has typed and clears out the input box
@@ -156,5 +139,5 @@ public class Window extends JFrame {
         String message = this.inputArea.getText();
         this.inputArea.setText("");
         return message;
-    }//end retrieveMessage()
-}//end Window
+    }
+}
