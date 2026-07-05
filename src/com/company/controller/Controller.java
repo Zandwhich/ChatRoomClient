@@ -11,26 +11,19 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The com.company.controller.Controller class
+ * The Controller class
  */
 public class Controller {
-
-    /* Fields */
-
-    // Variables
 
     /**
      * The window of the chat client
      */
-    private Window window;
+    private final Window window;
 
     /**
      * The model of the chat client
      */
-    private Model model;
-
-
-    /* Constructors */
+    private final Model model;
 
     /**
      * The constructor for the Controller class
@@ -40,18 +33,7 @@ public class Controller {
         String name = JOptionPane.showInputDialog("Please input your name");
         this.model = new Model(this, name);
         this.window.setVisible(true);
-    }//end Controller()
-
-
-    /* Methods */
-
-    // Public
-
-    /**
-     * The method that runs the program
-     */
-    public void run() {
-    }//end run()
+    }
 
     /**
      * The method that is called when the message should be sent to the server
@@ -59,40 +41,37 @@ public class Controller {
      */
     public void sendMessage() {
         String message = this.retrieveMessage();
-
-        // Check to see if the message is empty
-        if (message.equals("")) return;
+        if (message.isEmpty()) return;
 
         this.model.sendMessage(message);
-    }//end sendMessage()
+    }
 
     /**
      * Tells the window to print a message to the text box
      * @param message The message to print
+     * @param messageColor The colour of the message
      */
     public void printMessage(String message, Color messageColor) {
         this.window.printMessage(message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * Tells the window to print a message to the text box
      * @param name The name of the person who sent the message
-     * @param nameColor The color to display the name
+     * @param nameColor The colour to display the name
      * @param message The message to display
-     * @param messageColor The color of the message
+     * @param messageColor The colour of the message
      */
     public void printMessage(String name, Color nameColor, String message, Color messageColor) {
         this.window.printMessage(name, nameColor, message, messageColor);
-    }//end printMessage()
+    }
 
     /**
      * The method to call when there was an error with connecting to the server
      */
     public void declareConnectionError() {
         // TODO: Fill this in
-    }//end declareConnectionError()
-
-    // Private
+    }
 
     /**
      * The method that retrieves the message that the user has typed
@@ -100,6 +79,5 @@ public class Controller {
      */
     private String retrieveMessage() {
         return this.window.retrieveMessage();
-    }//end retrieveMessage()
-
-}//end com.company.controller.Controller
+    }
+}

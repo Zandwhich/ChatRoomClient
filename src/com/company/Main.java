@@ -16,9 +16,6 @@ public class Main {
      * @param args arguments
      */
     public static void main(String[] args) {
-
-        Controller controller = new Controller();
-        controller.run();
-
-    }//end main()
-}//end com.company.Main
+        new Controller();
+    }
+}
