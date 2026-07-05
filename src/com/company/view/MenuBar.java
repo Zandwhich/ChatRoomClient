@@ -1,7 +1,5 @@
 package com.company.view;
 
-import com.company.Controller;
-
 import javax.swing.*;
 
 /**
@@ -9,30 +7,16 @@ import javax.swing.*;
  */
 public class MenuBar extends JMenuBar {
 
-    /* Fields */
-    // Variables
-
-    /**
-     * The controller that controls everything
-     */
-    private Controller controller;
-
     /**
      * The menu that displays the participants in the chat
      */
-    private ParticipantsMenu participantsMenu;
-
-
-    /* Constructors */
+    private final ParticipantsMenu participantsMenu;
 
     /**
      * The constructor for the menu bar
-     * @param controller The controller that controls everything
      */
-    public MenuBar(Controller controller) {
-        this.controller = controller;
-        this.participantsMenu = new ParticipantsMenu(controller);
-
+    public MenuBar() {
+        this.participantsMenu = new ParticipantsMenu();
         super.add(this.participantsMenu);
-    }//end MenuBar()
-}//end MenuBar
+    }
+}

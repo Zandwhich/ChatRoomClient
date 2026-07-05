@@ -1,38 +1,27 @@
 package com.company.view;
 
-import com.company.Controller;
-
 import javax.swing.*;
 
 /**
- * The class to hold all of the names of the participants in the MenuBar
+ * The class to hold all the names of the participants in the MenuBar
  */
 public class ParticipantsMenu extends JMenu {
-
-    /* Fields */
-    // Constants
 
     /**
      * The name of the menu
      */
     public static final String NAME = "Participants";
 
-    public static final String stand_in_text = "Coming Soon!";
-
-    // Variables
-    private Controller controller;
-
-
-    /* Constructors */
+    /**
+     * The placeholder text shown until the participants list is implemented
+     */
+    public static final String STAND_IN_TEXT = "Coming Soon!";
 
     /**
      * The constructor for this object
-     * @param controller The controller that orchestrates everything
      */
-    public ParticipantsMenu(Controller controller) {
+    public ParticipantsMenu() {
         super(ParticipantsMenu.NAME);
-
-        this.controller = controller;
-        super.add(ParticipantsMenu.stand_in_text);
-    }//end ParticipantsMenu()
-}//end ParticipantsMenu
+        super.add(ParticipantsMenu.STAND_IN_TEXT);
+    }
+}
