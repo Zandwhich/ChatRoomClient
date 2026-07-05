@@ -18,12 +18,12 @@ public class Controller {
     /**
      * The window of the chat client
      */
-    private Window window;
+    private final Window window;
 
     /**
      * The model of the chat client
      */
-    private Model model;
+    private final Model model;
 
     /**
      * The constructor for the Controller class
@@ -36,18 +36,11 @@ public class Controller {
     }
 
     /**
-     * The method that runs the program
-     */
-    public void run() {
-    }
-
-    /**
      * The method that is called when the message should be sent to the server
      * If the message is empty, it doesn't send it to the server
      */
     public void sendMessage() {
         String message = this.retrieveMessage();
-
         if (message.isEmpty()) return;
 
         this.model.sendMessage(message);
@@ -56,6 +49,7 @@ public class Controller {
     /**
      * Tells the window to print a message to the text box
      * @param message The message to print
+     * @param messageColor The colour of the message
      */
     public void printMessage(String message, Color messageColor) {
         this.window.printMessage(message, messageColor);
@@ -64,9 +58,9 @@ public class Controller {
     /**
      * Tells the window to print a message to the text box
      * @param name The name of the person who sent the message
-     * @param nameColor The color to display the name
+     * @param nameColor The colour to display the name
      * @param message The message to display
-     * @param messageColor The color of the message
+     * @param messageColor The colour of the message
      */
     public void printMessage(String name, Color nameColor, String message, Color messageColor) {
         this.window.printMessage(name, nameColor, message, messageColor);
@@ -86,5 +80,4 @@ public class Controller {
     private String retrieveMessage() {
         return this.window.retrieveMessage();
     }
-
 }

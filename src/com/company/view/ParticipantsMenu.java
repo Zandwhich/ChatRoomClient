@@ -1,11 +1,9 @@
 package com.company.view;
 
-import com.company.Controller;
-
 import javax.swing.*;
 
 /**
- * The class to hold all of the names of the participants in the MenuBar
+ * The class to hold all the names of the participants in the MenuBar
  */
 public class ParticipantsMenu extends JMenu {
 
@@ -14,18 +12,16 @@ public class ParticipantsMenu extends JMenu {
      */
     public static final String NAME = "Participants";
 
-    public static final String stand_in_text = "Coming Soon!";
-
-    private Controller controller;
+    /**
+     * The placeholder text shown until the participants list is implemented
+     */
+    public static final String STAND_IN_TEXT = "Coming Soon!";
 
     /**
      * The constructor for this object
-     * @param controller The controller that orchestrates everything
      */
-    public ParticipantsMenu(Controller controller) {
+    public ParticipantsMenu() {
         super(ParticipantsMenu.NAME);
-
-        this.controller = controller;
-        super.add(ParticipantsMenu.stand_in_text);
+        super.add(ParticipantsMenu.STAND_IN_TEXT);
     }
 }

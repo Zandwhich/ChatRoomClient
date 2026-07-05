@@ -59,7 +59,7 @@ public class Model {
                     break;
                 }
 
-                JSONObject jsonResponse  = this.deserializeMessageFromServer(input);
+                JSONObject jsonResponse = this.deserializeMessageFromServer(input);
 
                 // There was an error with reading in this message; skipping over it and continuing on
                 if (jsonResponse == null) continue;
@@ -102,39 +102,40 @@ public class Model {
          * @param response The response from the server
          */
         private void outputMessage(JSONObject response) {
-            if (!response.containsKey(Model.MESSAGE_KEY) || response.get(Model.MESSAGE_KEY) == null) {
+            String messageText = this.extractText(response, Model.MESSAGE_KEY);
+            if (messageText == null) {
                 this.malformedServerResponse(response);
                 return;
             }
 
-            JSONObject message = (JSONObject) response.get(Model.MESSAGE_KEY);
-
-            if (!message.containsKey(Model.TEXT_KEY) || message.get(Model.TEXT_KEY) == null) {
-                this.malformedServerResponse(response);
-                return;
-            }
-
-            String messageText = (String) message.get(Model.TEXT_KEY);
-
-            // TODO: Implement the colour for the message
-
+            // A response without a name is a system message and is printed on its own
             if (!response.containsKey(Model.NAME_KEY) || response.get(Model.NAME_KEY) == null) {
                 controller.printMessage(messageText, Color.BLACK);
                 return;
             }
 
-            JSONObject name = (JSONObject) response.get(Model.NAME_KEY);
-
-            if (!name.containsKey(Model.TEXT_KEY) || name.get(Model.TEXT_KEY) == null) {
+            String nameText = this.extractText(response, Model.NAME_KEY);
+            if (nameText == null) {
                 this.malformedServerResponse(response);
                 return;
             }
 
-            String nameText = (String) name.get(Model.TEXT_KEY);
-
-            // TODO: Implement the colour for the message
-
             controller.printMessage(nameText, Color.BLUE, messageText, Color.BLACK);
+        }
+
+        /**
+         * Pulls the text out of a nested object (keyed by TEXT_KEY) within the response
+         * @param response The response from the server
+         * @param key The key of the nested object to read
+         * @return The text within the nested object, or null if it is missing or malformed
+         */
+        private String extractText(JSONObject response, String key) {
+            if (!response.containsKey(key) || response.get(key) == null) return null;
+
+            JSONObject nested = (JSONObject) response.get(key);
+            if (!nested.containsKey(Model.TEXT_KEY) || nested.get(Model.TEXT_KEY) == null) return null;
+
+            return (String) nested.get(Model.TEXT_KEY);
         }
 
         /**
@@ -178,16 +179,6 @@ public class Model {
     public static final int START_PORT = 1024;
 
     /**
-     * The highest port that we can connect to
-     */
-    public static final int MAX_PORT = 1124;
-
-    /**
-     * The timeout tolerance in milliseconds for connecting to the server
-     */
-    public static final int TIMEOUT = 100;
-
-    /**
      * The name of the input thread
      */
     public static final String INPUT_THREAD_NAME = "Input Thread";
@@ -220,6 +211,7 @@ public class Model {
     /**
      * The constructor for the model
      * @param controller The controller that controls everything
+     * @param name The name of the client
      */
     public Model(Controller controller, String name) {
         this.controller = controller;
@@ -229,14 +221,6 @@ public class Model {
 
         InputThread inputThread = new InputThread(Model.INPUT_THREAD_NAME);
         inputThread.start();
-    }
-
-    /**
-     * Returns the name of the user
-     * @return The name of the user
-     */
-    public String getName() {
-        return name;
     }
 
     /**
@@ -283,16 +267,13 @@ public class Model {
      * Runs once at the beginning to set the initial connection with the server
      */
     private void initialConnection() {
-
         this.connectToServer();
-
         if (this.server == null) {
             this.controller.declareConnectionError();
             return;
         }
 
         this.createInputOutputStreams();
-
         if (this.in == null || this.out == null) {
             this.controller.declareConnectionError();
             return;
@@ -308,7 +289,7 @@ public class Model {
         try {
             System.out.println("Attempting to connect on port: " + Model.START_PORT);
             this.server = new Socket(Model.SERVER_IP, Model.START_PORT);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println("An error occurred connecting to the server");
             System.err.println("Message: " + e.getMessage());
             System.err.println("Cause: " + e.getCause());
@@ -345,5 +326,4 @@ public class Model {
 
         this.sendToServer(jsonMessage.toString());
     }
-
 }

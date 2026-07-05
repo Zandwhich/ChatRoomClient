@@ -4,8 +4,6 @@
 
 package com.company;
 
-import java.net.*;
-
 /**
  * The main class to start off the application
  */
@@ -16,9 +14,6 @@ public class Main {
      * @param args arguments
      */
     public static void main(String[] args) {
-
-        Controller controller = new Controller();
-        controller.run();
-
+        new Controller();
     }
 }
