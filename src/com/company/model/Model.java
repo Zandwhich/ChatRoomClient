@@ -4,7 +4,7 @@
 
 package com.company.model;
 
-import com.company.Controller;
+import com.company.controller.Controller;
 import json_simple.JSONObject;
 import json_simple.parser.JSONParser;
 import json_simple.parser.ParseException;

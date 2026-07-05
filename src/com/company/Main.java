@@ -4,9 +4,7 @@
 
 package com.company;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.*;
+import com.company.controller.Controller;
 
 /**
  * The main class to start off the application

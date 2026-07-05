@@ -2,7 +2,7 @@
  * Author: Alex Zdanowicz
  */
 
-package com.company;
+package com.company.controller;
 
 import com.company.model.Model;
 import com.company.view.Window;
@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The com.company.Controller class
+ * The com.company.controller.Controller class
  */
 public class Controller {
 
@@ -102,4 +102,4 @@ public class Controller {
         return this.window.retrieveMessage();
     }//end retrieveMessage()
 
-}//end com.company.Controller
+}//end com.company.controller.Controller

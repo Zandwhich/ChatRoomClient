@@ -6,7 +6,7 @@ package com.company.view;
 
 
 
-import com.company.Controller;
+import com.company.controller.Controller;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
